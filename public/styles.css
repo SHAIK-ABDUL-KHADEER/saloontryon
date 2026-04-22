@@ -943,6 +943,13 @@ body {
 }
 
 /* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .hero-title { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+  .result-container { flex-direction: column; gap: 24px; }
+  .result-card { width: 100%; max-width: 500px; margin: 0 auto; }
+  .result-arrow { transform: rotate(90deg); margin: 10px 0; }
+}
+
 @media (max-width: 768px) {
   .section { padding: 60px 0; }
   .section-header { margin-bottom: 40px; }
@@ -966,10 +973,6 @@ body {
   .style-card-name { font-size: 0.8rem; }
   .style-card-desc { font-size: 0.7rem; }
 
-  .result-container { gap: 16px; }
-  .result-card { min-width: 100%; }
-  .result-arrow { transform: rotate(90deg); }
-
   .history-grid { grid-template-columns: 1fr; }
 }
 
@@ -977,4 +980,5 @@ body {
   .hero-title { font-size: 2.5rem; }
   .btn { padding: 12px 24px; font-size: 0.85rem; }
   .btn-generate { padding: 14px 28px; font-size: 0.95rem; }
+  .camera-controls { flex-direction: column; gap: 12px; }
 }
