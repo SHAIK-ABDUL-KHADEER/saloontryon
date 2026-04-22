@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Saloon Experience Centre – Virtual hairstyle and beard style try-on powered by AI">
+  <title>Saloon Experience Centre | Virtual Style Try-On</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">✂️ AI-POWERED EXPERIENCE</div>
+      <h1 class="hero-title">Saloon<br><span class="gold">Experience Centre</span></h1>
+      <p class="hero-subtitle">Discover your perfect look. Capture, select, and visualize your new style in seconds.</p>
+      <button class="btn btn-primary btn-glow" id="startBtn" onclick="scrollToSection('nameSection')">
+        <span>Start Your Transformation</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+    <div class="hero-scroll-indicator">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ===== STEP INDICATOR ===== -->
+  <div class="steps-bar" id="stepsBar">
+    <div class="step active" data-step="1">
+      <div class="step-num">1</div>
+      <span>Your Name</span>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step" data-step="2">
+      <div class="step-num">2</div>
+      <span>Capture Photo</span>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step" data-step="3">
+      <div class="step-num">3</div>
+      <span>Choose Style</span>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step" data-step="4">
+      <div class="step-num">4</div>
+      <span>See Result</span>
+    </div>
+  </div>
+
+  <!-- ===== STEP 1: NAME INPUT ===== -->
+  <section class="section" id="nameSection">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">STEP 01</span>
+        <h2>What's Your <span class="gold">Name</span>?</h2>
+        <p class="section-desc">Let's personalize your experience</p>
+      </div>
+      <div class="name-input-wrap reveal">
+        <div class="input-group">
+          <input type="text" id="customerName" class="input-field" placeholder="Enter your name..." maxlength="50" autocomplete="off">
+          <button class="btn btn-primary" id="nameNextBtn" onclick="goToCamera()">
+            <span>Next</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STEP 2: CAMERA CAPTURE ===== -->
+  <section class="section" id="cameraSection" style="display:none;">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">STEP 02</span>
+        <h2>Capture Your <span class="gold">Photo</span></h2>
+        <p class="section-desc">Position yourself in the frame and snap a photo</p>
+      </div>
+      <div class="camera-container reveal">
+        <div class="camera-frame">
+          <video id="cameraFeed" autoplay playsinline></video>
+          <canvas id="captureCanvas" style="display:none;"></canvas>
+          <img id="capturedPreview" class="captured-preview" style="display:none;">
+          <div class="camera-guide">
+            <div class="guide-circle"></div>
+          </div>
+          <div class="camera-overlay" id="cameraOverlay">
+            <span>Camera loading...</span>
+          </div>
+        </div>
+        <div class="camera-controls">
+          <button class="btn btn-outline" id="retakeBtn" style="display:none;" onclick="retakePhoto()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg>
+            <span>Retake</span>
+          </button>
+          <button class="btn btn-primary btn-capture" id="captureBtn" onclick="capturePhoto()">
+            <div class="capture-ring"></div>
+          </button>
+          <button class="btn btn-primary" id="usePhotoBtn" style="display:none;" onclick="goToStyles()">
+            <span>Use Photo</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STEP 3: STYLE SELECTION ===== -->
+  <section class="section" id="stylesSection" style="display:none;">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">STEP 03</span>
+        <h2>Choose Your <span class="gold">Style</span></h2>
+        <p class="section-desc">Select a hairstyle, beard style, or both</p>
+      </div>
+
+      <!-- Hairstyles -->
+      <div class="style-category reveal">
+        <h3 class="category-title">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7c0-3-2-5-5-5s-3 1-3 3c0-2-1-3-3-3S4 4 4 7c0 4 3 6 5 8l3 4 3-4c2-2 5-4 5-8z"/></svg>
+          Hairstyles
+        </h3>
+        <div class="styles-grid" id="hairstylesGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Beards -->
+      <div class="style-category reveal">
+        <h3 class="category-title">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0114 0v2"/></svg>
+          Beard Styles
+        </h3>
+        <div class="styles-grid" id="beardsGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <div class="generate-wrap reveal">
+        <div class="selection-summary" id="selectionSummary">
+          <p>No styles selected yet</p>
+        </div>
+        <button class="btn btn-primary btn-glow btn-generate" id="generateBtn" onclick="generateStyle()" disabled>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>Generate My New Look</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STEP 4: RESULT ===== -->
+  <section class="section" id="resultSection" style="display:none;">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">STEP 04</span>
+        <h2>Your New <span class="gold">Look</span></h2>
+        <p class="section-desc" id="resultGreeting">Here's the transformation!</p>
+      </div>
+      <div class="result-container reveal">
+        <div class="result-card">
+          <div class="result-label">Before</div>
+          <img id="resultBefore" src="" alt="Before">
+        </div>
+        <div class="result-arrow">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="result-card result-card-after">
+          <div class="result-label gold">After</div>
+          <img id="resultAfter" src="" alt="After">
+        </div>
+      </div>
+      <div class="result-actions reveal">
+        <button class="btn btn-outline" onclick="startOver()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg>
+          <span>Try Another Style</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LOADING OVERLAY ===== -->
+  <div class="loading-overlay" id="loadingOverlay" style="display:none;">
+    <div class="loading-content">
+      <!-- Scissors Animation -->
+      <div class="scissors-container">
+        <svg class="scissors-svg" viewBox="0 0 120 120" width="120" height="120">
+          <!-- Left blade -->
+          <g class="blade blade-left">
+            <ellipse cx="35" cy="85" rx="12" ry="12" fill="none" stroke="var(--gold)" stroke-width="2.5"/>
+            <line x1="42" y1="76" x2="75" y2="30" stroke="var(--gold)" stroke-width="3" stroke-linecap="round"/>
+          </g>
+          <!-- Right blade -->
+          <g class="blade blade-right">
+            <ellipse cx="85" cy="85" rx="12" ry="12" fill="none" stroke="var(--gold)" stroke-width="2.5"/>
+            <line x1="78" y1="76" x2="45" y2="30" stroke="var(--gold)" stroke-width="3" stroke-linecap="round"/>
+          </g>
+          <!-- Pivot -->
+          <circle cx="60" cy="55" r="3" fill="var(--gold)"/>
+        </svg>
+        <!-- Hair strands being cut -->
+        <div class="hair-strands">
+          <div class="strand"></div>
+          <div class="strand"></div>
+          <div class="strand"></div>
+          <div class="strand"></div>
+          <div class="strand"></div>
+        </div>
+      </div>
+      <h3 class="loading-title">Crafting Your Style</h3>
+      <p class="loading-text" id="loadingText">AI barber is working its magic...</p>
+      <!-- Barber pole progress -->
+      <div class="barber-progress">
+        <div class="barber-pole"></div>
+      </div>
+      <!-- Floating comb -->
+      <div class="floating-tools">
+        <span class="float-icon fi-1">✂️</span>
+        <span class="float-icon fi-2">💈</span>
+        <span class="float-icon fi-3">💇</span>
+        <span class="float-icon fi-4">🪮</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ERROR TOAST ===== -->
+  <div class="toast" id="toast">
+    <span id="toastMessage"></span>
+  </div>
+
+  <!-- ===== HISTORY SECTION ===== -->
+  <section class="section section-dark" id="historySection">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Recent <span class="gold">Transformations</span></h2>
+        <p class="section-desc">Browse previous style transformations</p>
+      </div>
+      <div class="history-grid" id="historyGrid">
+        <p class="history-empty">No transformations yet. Be the first!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>✂️ Saloon Experience Centre &copy; 2026</p>
+      <p class="footer-sub">Powered by AI</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
