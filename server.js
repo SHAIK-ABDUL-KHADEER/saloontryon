@@ -271,6 +271,23 @@ app.delete('/api/history/:id', (req, res) => {
   res.json({ success: true });
 });
 
+// --------------- Keep Awake Cron ---------------
+// Render free tier spins down after 15 mins of inactivity.
+// This pings the server's own external URL every 14 minutes.
+app.get('/api/ping', (req, res) => res.send('pong'));
+
+const RENDER_URL = process.env.RENDER_EXTERNAL_URL;
+if (RENDER_URL) {
+  setInterval(async () => {
+    try {
+      await fetch(`${RENDER_URL}/api/ping`);
+      console.log(`[CRON] Pinged ${RENDER_URL} to keep awake`);
+    } catch (err) {
+      console.error(`[CRON] Ping failed:`, err.message);
+    }
+  }, 14 * 60 * 1000); // 14 minutes
+}
+
 // --------------- Start Server ---------------
 app.listen(PORT, () => {
   console.log(`\n  ✂️  Saloon Experience Centre`);
