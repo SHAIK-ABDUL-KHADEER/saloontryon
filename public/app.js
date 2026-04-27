@@ -102,6 +102,7 @@ async function startCamera() {
   const video = $('#cameraFeed');
   const overlay = $('#cameraOverlay');
   const captureBtn = $('#captureBtn');
+  const uploadBtnLabel = $('#uploadBtnLabel');
 
   try {
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -112,12 +113,14 @@ async function startCamera() {
     video.srcObject = stream;
     overlay.classList.add('hidden');
     captureBtn.style.display = '';
+    if (uploadBtnLabel) uploadBtnLabel.style.display = '';
     video.style.display = '';
     $('#capturedPreview').style.display = 'none';
     $('#retakeBtn').style.display = 'none';
     $('#usePhotoBtn').style.display = 'none';
   } catch (err) {
     overlay.innerHTML = `<span>📷 Camera access denied.<br>Please allow camera permission.</span>`;
+    if (uploadBtnLabel) uploadBtnLabel.style.display = '';
     console.error('Camera error:', err);
   }
 }
@@ -142,6 +145,7 @@ function capturePhoto() {
 
   // Hide capture, show retake + use
   $('#captureBtn').style.display = 'none';
+  if ($('#uploadBtnLabel')) $('#uploadBtnLabel').style.display = 'none';
   $('#retakeBtn').style.display = '';
   $('#usePhotoBtn').style.display = '';
 
@@ -158,8 +162,35 @@ function retakePhoto() {
   $('#capturedPreview').style.display = 'none';
   $('.camera-guide').style.display = 'flex';
   $('#captureBtn').style.display = '';
+  if ($('#uploadBtnLabel')) $('#uploadBtnLabel').style.display = '';
   $('#retakeBtn').style.display = 'none';
   $('#usePhotoBtn').style.display = 'none';
+  if ($('#uploadPhotoInput')) $('#uploadPhotoInput').value = '';
+}
+
+function handlePhotoUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    state.photoDataUrl = e.target.result;
+    
+    const preview = $('#capturedPreview');
+    const video = $('#cameraFeed');
+
+    preview.src = state.photoDataUrl;
+    preview.style.display = 'block';
+    video.style.display = 'none';
+    $('.camera-guide').style.display = 'none';
+
+    // Hide capture & upload, show retake + use
+    $('#captureBtn').style.display = 'none';
+    if ($('#uploadBtnLabel')) $('#uploadBtnLabel').style.display = 'none';
+    $('#retakeBtn').style.display = '';
+    $('#usePhotoBtn').style.display = '';
+  };
+  reader.readAsDataURL(file);
 }
 
 // ===== STEP 2 → 3: GO TO STYLES =====
