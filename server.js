@@ -78,6 +78,7 @@ const STYLES = {
     { id: 'side_part', name: 'Side Part', image: '/styles/hairstyles/side_part.png', description: 'Classic gentleman cut with a defined side parting' },
     { id: 'afro', name: 'Afro', image: '/styles/hairstyles/afro.png', description: 'Natural rounded voluminous curly hairstyle' },
     { id: 'bald_head', name: 'Bald Head', image: '/styles/hairstyles/bald_head.svg', description: 'Completely bald head, smooth scalp, no hair on top' },
+    { id: 'wolf_cut', name: 'Wolf Cut', image: '/styles/hairstyles/wolf_cut.png', description: 'Trendy hairstyle featuring choppy layers and volume on top with longer hair at the back' },
   ],
   beards: [
     { id: 'full_beard', name: 'Full Beard', image: '/styles/beards/full_beard.png', description: 'Thick, well-groomed full coverage beard' },
