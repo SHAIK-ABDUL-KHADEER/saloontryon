@@ -5,6 +5,7 @@ const state = {
   photoDataUrl: null,
   selectedHairstyle: null,
   selectedBeard: null,
+  selectedGender: 'male',
   styles: { hairstyles: [], beards: [] },
   stream: null,
 };
@@ -234,7 +235,7 @@ async function goToStyles() {
 // ===== STYLES =====
 async function loadStyles() {
   try {
-    const res = await fetch('/api/styles');
+    const res = await fetch(`/api/styles?gender=${state.selectedGender}`);
     state.styles = await res.json();
     renderStyles();
   } catch (err) {
@@ -245,6 +246,7 @@ async function loadStyles() {
 function renderStyles() {
   const hairGrid = $('#hairstylesGrid');
   const beardGrid = $('#beardsGrid');
+  const beardCategory = $('#beardCategory');
 
   hairGrid.innerHTML = state.styles.hairstyles
     .map((s) => createStyleCard(s, 'hairstyle'))
@@ -253,6 +255,54 @@ function renderStyles() {
   beardGrid.innerHTML = state.styles.beards
     .map((s) => createStyleCard(s, 'beard'))
     .join('');
+
+  // Hide beard section if female is selected
+  if (beardCategory) {
+    if (state.selectedGender === 'female') {
+      beardCategory.classList.add('disabled-category');
+      beardCategory.style.opacity = '0.3';
+      beardCategory.style.pointerEvents = 'none';
+    } else {
+      beardCategory.classList.remove('disabled-category');
+      beardCategory.style.opacity = '';
+      beardCategory.style.pointerEvents = '';
+    }
+  }
+}
+
+async function switchGender(gender) {
+  if (state.selectedGender === gender) return;
+  state.selectedGender = gender;
+
+  // Update toggle UI
+  const maleBtn = $('#genderMale');
+  const femaleBtn = $('#genderFemale');
+  if (gender === 'male') {
+    maleBtn.classList.add('active');
+    femaleBtn.classList.remove('active');
+  } else {
+    femaleBtn.classList.add('active');
+    maleBtn.classList.remove('active');
+  }
+
+  // Clear any selected hairstyle (since we're switching genders)
+  if (state.selectedHairstyle) {
+    const prev = $(`#card-${state.selectedHairstyle}`);
+    if (prev) prev.classList.remove('selected');
+    state.selectedHairstyle = null;
+  }
+
+  // Clear beard selection if switching to female
+  if (gender === 'female' && state.selectedBeard) {
+    const prev = $(`#card-${state.selectedBeard}`);
+    if (prev) prev.classList.remove('selected');
+    state.selectedBeard = null;
+  }
+
+  updateSelectionSummary();
+
+  // Reload styles from server with gender filter
+  await loadStyles();
 }
 
 function createStyleCard(style, type) {
@@ -438,10 +488,20 @@ function startOver() {
   state.photoDataUrl = null;
   state.selectedHairstyle = null;
   state.selectedBeard = null;
+  state.selectedGender = 'male';
+
+  // Reset gender toggle UI
+  const maleBtn = $('#genderMale');
+  const femaleBtn = $('#genderFemale');
+  if (maleBtn) maleBtn.classList.add('active');
+  if (femaleBtn) femaleBtn.classList.remove('active');
 
   // Reset style card selections
   $$('.style-card.selected').forEach((c) => c.classList.remove('selected'));
   updateSelectionSummary();
+
+  // Reload styles for male
+  loadStyles();
 
   // Hide result, show name
   $('#resultSection').style.display = 'none';

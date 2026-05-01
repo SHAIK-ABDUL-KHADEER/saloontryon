@@ -62,23 +62,37 @@ function generateId() {
 // --------------- Style Catalog ---------------
 const STYLES = {
   hairstyles: [
-    { id: 'pompadour', name: 'Pompadour', image: '/styles/hairstyles/pompadour.png', description: 'Classic volume on top swept upward and back' },
-    { id: 'fade_cut', name: 'Fade Cut', image: '/styles/hairstyles/fade_cut.png', description: 'Gradual taper from skin to longer hair on top' },
-    { id: 'buzz_cut', name: 'Buzz Cut', image: '/styles/hairstyles/buzz_cut.png', description: 'Uniform short length all over' },
-    { id: 'quiff', name: 'Quiff', image: '/styles/hairstyles/quiff.png', description: 'Voluminous front swept upward with textured top' },
-    { id: 'undercut', name: 'Undercut', image: '/styles/hairstyles/undercut.png', description: 'Long on top with shaved or short sides' },
-    { id: 'crew_cut', name: 'Crew Cut', image: '/styles/hairstyles/crew_cut.png', description: 'Short tapered cut, slightly longer on top' },
-    { id: 'slick_back', name: 'Slick Back', image: '/styles/hairstyles/slick_back.png', description: 'Hair combed straight back with a sleek finish' },
-    { id: 'textured_crop', name: 'Textured Crop', image: '/styles/hairstyles/textured_crop.png', description: 'Short messy fringe with textured layers' },
-    { id: 'man_bun', name: 'Man Bun', image: '/styles/hairstyles/man_bun.png', description: 'Hair pulled back and tied into a bun at the crown' },
-    { id: 'mohawk', name: 'Mohawk', image: '/styles/hairstyles/mohawk.png', description: 'Strip of tall hair down the center with shaved sides' },
-    { id: 'curtain_bangs', name: 'Curtain Bangs', image: '/styles/hairstyles/curtain_bangs.png', description: 'Center-parted fringe that frames the face like curtains' },
-    { id: 'french_crop', name: 'French Crop', image: '/styles/hairstyles/french_crop.png', description: 'Short textured top with a blunt straight fringe' },
-    { id: 'taper_fade', name: 'Taper Fade', image: '/styles/hairstyles/taper_fade.png', description: 'Gradual shortening around ears and neckline with length on top' },
-    { id: 'side_part', name: 'Side Part', image: '/styles/hairstyles/side_part.png', description: 'Classic gentleman cut with a defined side parting' },
-    { id: 'afro', name: 'Afro', image: '/styles/hairstyles/afro.png', description: 'Natural rounded voluminous curly hairstyle' },
-    { id: 'bald_head', name: 'Bald Head', image: '/styles/hairstyles/bald_head.svg', description: 'Completely bald head, smooth scalp, no hair on top' },
-    { id: 'wolf_cut', name: 'Wolf Cut', image: '/styles/hairstyles/wolf_cut.png', description: 'Trendy hairstyle featuring choppy layers and volume on top with longer hair at the back' },
+    // Male hairstyles
+    { id: 'pompadour', name: 'Pompadour', image: '/styles/hairstyles/pompadour.png', description: 'Classic volume on top swept upward and back', gender: 'male' },
+    { id: 'fade_cut', name: 'Fade Cut', image: '/styles/hairstyles/fade_cut.png', description: 'Gradual taper from skin to longer hair on top', gender: 'male' },
+    { id: 'buzz_cut', name: 'Buzz Cut', image: '/styles/hairstyles/buzz_cut.png', description: 'Uniform short length all over', gender: 'male' },
+    { id: 'quiff', name: 'Quiff', image: '/styles/hairstyles/quiff.png', description: 'Voluminous front swept upward with textured top', gender: 'male' },
+    { id: 'undercut', name: 'Undercut', image: '/styles/hairstyles/undercut.png', description: 'Long on top with shaved or short sides', gender: 'male' },
+    { id: 'crew_cut', name: 'Crew Cut', image: '/styles/hairstyles/crew_cut.png', description: 'Short tapered cut, slightly longer on top', gender: 'male' },
+    { id: 'slick_back', name: 'Slick Back', image: '/styles/hairstyles/slick_back.png', description: 'Hair combed straight back with a sleek finish', gender: 'male' },
+    { id: 'textured_crop', name: 'Textured Crop', image: '/styles/hairstyles/textured_crop.png', description: 'Short messy fringe with textured layers', gender: 'male' },
+    { id: 'man_bun', name: 'Man Bun', image: '/styles/hairstyles/man_bun.png', description: 'Hair pulled back and tied into a bun at the crown', gender: 'male' },
+    { id: 'mohawk', name: 'Mohawk', image: '/styles/hairstyles/mohawk.png', description: 'Strip of tall hair down the center with shaved sides', gender: 'male' },
+    { id: 'curtain_bangs', name: 'Curtain Bangs', image: '/styles/hairstyles/curtain_bangs.png', description: 'Center-parted fringe that frames the face like curtains', gender: 'male' },
+    { id: 'french_crop', name: 'French Crop', image: '/styles/hairstyles/french_crop.png', description: 'Short textured top with a blunt straight fringe', gender: 'male' },
+    { id: 'taper_fade', name: 'Taper Fade', image: '/styles/hairstyles/taper_fade.png', description: 'Gradual shortening around ears and neckline with length on top', gender: 'male' },
+    { id: 'side_part', name: 'Side Part', image: '/styles/hairstyles/side_part.png', description: 'Classic gentleman cut with a defined side parting', gender: 'male' },
+    { id: 'afro', name: 'Afro', image: '/styles/hairstyles/afro.png', description: 'Natural rounded voluminous curly hairstyle', gender: 'male' },
+    { id: 'bald_head', name: 'Bald Head', image: '/styles/hairstyles/bald_head.svg', description: 'Completely bald head, smooth scalp, no hair on top', gender: 'male' },
+    { id: 'wolf_cut', name: 'Wolf Cut', image: '/styles/hairstyles/wolf_cut.png', description: 'Trendy hairstyle featuring choppy layers and volume on top with longer hair at the back', gender: 'male' },
+    // Female hairstyles
+    { id: 'f_long_bob', name: 'Long Bob (Lob)', image: '/styles/hairstyles/f_long_bob.png', description: 'Sleek shoulder-length bob with a clean blunt cut', gender: 'female' },
+    { id: 'f_pixie_cut', name: 'Pixie Cut', image: '/styles/hairstyles/f_pixie_cut.png', description: 'Short textured cut with side-swept bangs', gender: 'female' },
+    { id: 'f_beach_waves', name: 'Beach Waves', image: '/styles/hairstyles/f_beach_waves.png', description: 'Long flowing loose curls with a natural beachy texture', gender: 'female' },
+    { id: 'f_layered_cut', name: 'Layered Cut', image: '/styles/hairstyles/f_layered_cut.png', description: 'Medium-length with feathered face-framing layers', gender: 'female' },
+    { id: 'f_straight_hair', name: 'Sleek Straight', image: '/styles/hairstyles/f_straight_hair.png', description: 'Long perfectly straight glossy hair with a sleek finish', gender: 'female' },
+    { id: 'f_curly_hair', name: 'Voluminous Curls', image: '/styles/hairstyles/f_curly_hair.png', description: 'Long defined bouncy spiral curls with natural volume', gender: 'female' },
+    { id: 'f_blunt_bangs', name: 'Blunt Bangs', image: '/styles/hairstyles/f_blunt_bangs.png', description: 'Medium-length hair with thick straight bangs covering the forehead', gender: 'female' },
+    { id: 'f_side_braid', name: 'Side Braid', image: '/styles/hairstyles/f_side_braid.png', description: 'Long thick braid draped elegantly over one shoulder', gender: 'female' },
+    { id: 'f_messy_bun', name: 'Messy Bun', image: '/styles/hairstyles/f_messy_bun.png', description: 'High messy bun with loose strands framing the face', gender: 'female' },
+    { id: 'f_shaggy_cut', name: 'Modern Shag', image: '/styles/hairstyles/f_shaggy_cut.png', description: 'Medium-length choppy layers with lots of volume and curtain bangs', gender: 'female' },
+    { id: 'f_sleek_ponytail', name: 'Sleek Ponytail', image: '/styles/hairstyles/f_sleek_ponytail.png', description: 'High sleek ponytail pulled back tightly with hair wrapped at the base', gender: 'female' },
+    { id: 'f_curtain_bangs', name: 'Curtain Bangs', image: '/styles/hairstyles/f_curtain_bangs.png', description: 'Center-parted bangs blending into long flowing hair that frames the face', gender: 'female' },
   ],
   beards: [
     { id: 'full_beard', name: 'Full Beard', image: '/styles/beards/full_beard.png', description: 'Thick, well-groomed full coverage beard' },
@@ -102,9 +116,16 @@ const STYLES = {
 
 // --------------- API Routes ---------------
 
-// Get style catalog
+// Get style catalog (supports ?gender=male|female filtering for hairstyles)
 app.get('/api/styles', (req, res) => {
-  res.json(STYLES);
+  const gender = req.query.gender; // 'male' or 'female'
+  const filtered = {
+    hairstyles: gender
+      ? STYLES.hairstyles.filter(s => s.gender === gender)
+      : STYLES.hairstyles,
+    beards: STYLES.beards,
+  };
+  res.json(filtered);
 });
 
 // Upload captured photo
@@ -170,28 +191,47 @@ app.post('/api/generate', async (req, res) => {
     const photoBase64 = photoBuffer.toString('base64');
     const mimeType = 'image/png';
 
-    // Build the style prompt
-    let styleDescription = 'You are a professional photo editor specializing in hyper-realistic hair and beard transformations. ';
-    styleDescription += 'Edit this person\'s photo to give them ';
-    const parts = [];
+    // Build the style prompt — enhanced for hyper-realistic results
+    const styleParts = [];
     if (selectedHairstyle) {
       const style = STYLES.hairstyles.find(s => s.id === selectedHairstyle);
-      parts.push(`a ${style ? style.name : selectedHairstyle} hairstyle (${style ? style.description : ''})`);
+      styleParts.push(`a ${style ? style.name : selectedHairstyle} hairstyle (${style ? style.description : ''})`);
     }
     if (selectedBeard) {
       const style = STYLES.beards.find(s => s.id === selectedBeard);
-      parts.push(`a ${style ? style.name : selectedBeard} beard style (${style ? style.description : ''})`);
+      styleParts.push(`a ${style ? style.name : selectedBeard} beard style (${style ? style.description : ''})`);
     }
-    styleDescription += parts.join(' and ');
-    styleDescription += '.\n\nCRITICAL RULES for a natural result:\n';
-    styleDescription += '1. HAIR COLOR: The output hair and beard color MUST be the EXACT SAME color as the user\'s existing hair color visible in this input image. Look at their current hair, eyebrows, and any facial hair — use that identical color for the new style. Do NOT change, lighten, darken, or use any different hair color whatsoever.\n';
-    styleDescription += '2. LIGHTING & SHADOWS: The new hair/beard must have the exact same lighting direction, shadow intensity, and highlight placement as the rest of the photo. Study where light falls on the face and replicate it on the hair.\n';
-    styleDescription += '3. SKIN & FACE: Keep the face, skin tone, facial features, expression, and complexion 100% identical. Do not alter the face in any way.\n';
-    styleDescription += '4. BLENDING: The hairline, sideburns, and beard edges must blend seamlessly into the skin. No harsh edges, no visible cut-out artifacts, no pasted-on look.\n';
-    styleDescription += '5. BACKGROUND: Keep the original background, clothing, and surroundings completely unchanged.\n';
-    styleDescription += '6. TEXTURE: The hair/beard must have natural texture with realistic individual strands, not look like a smooth plastic wig or fake overlay.\n';
-    styleDescription += '7. OVERALL: The final image must look like a real, unedited photograph taken by a camera. It should be impossible to tell that the hair/beard was digitally changed.\n';
-    styleDescription += '8. RESOLUTION: Maintain the same image quality, sharpness, and resolution as the original photo.\n';
+
+    let styleDescription = `ROLE: You are the world's best photorealistic hair/beard retouching specialist. You have 20 years of experience creating undetectable hair transformations in photographs.\n\n`;
+    styleDescription += `TASK: Edit this person's photo to give them ${styleParts.join(' and ')}.\n\n`;
+    styleDescription += `ABSOLUTE RULES — violating ANY of these is unacceptable:\n\n`;
+    styleDescription += `1. FACE PRESERVATION (MOST CRITICAL): The person's face must remain PIXEL-PERFECT IDENTICAL to the input. This means:\n`;
+    styleDescription += `   - Same exact eye shape, eye color, pupil size, eyelashes, eyebrow shape and thickness\n`;
+    styleDescription += `   - Same exact nose shape, nostril size, lip shape, lip color, lip thickness\n`;
+    styleDescription += `   - Same exact jawline, chin shape, cheekbones, forehead shape\n`;
+    styleDescription += `   - Same exact skin tone, skin texture, pores, freckles, moles, blemishes\n`;
+    styleDescription += `   - Same exact facial expression, wrinkles, laugh lines\n`;
+    styleDescription += `   - Same exact ear shape and position\n`;
+    styleDescription += `   - DO NOT age, de-age, beautify, smooth, or alter the face in ANY way\n\n`;
+    styleDescription += `2. HAIR COLOR MATCHING: The new hair/beard color MUST exactly match the person's EXISTING natural hair color visible in this photo. Analyze their current hair, eyebrows, and any facial hair — replicate that identical color, shade, and tone. Never change, lighten, or darken the hair color.\n\n`;
+    styleDescription += `3. LIGHTING CONSISTENCY: Study the exact lighting setup in this photo — the direction of the key light, fill light, ambient light. The new hair/beard must have shadows, highlights, specular reflections, and subsurface scattering that PERFECTLY match this lighting environment. Pay attention to:\n`;
+    styleDescription += `   - Shadow direction and softness on the face\n`;
+    styleDescription += `   - Highlight positions on skin and existing hair\n`;
+    styleDescription += `   - Color temperature of the light sources\n`;
+    styleDescription += `   - Ambient occlusion in recessed areas\n\n`;
+    styleDescription += `4. SEAMLESS BLENDING: The transition between the new hair/beard and skin must be invisible:\n`;
+    styleDescription += `   - Hairline must look 100% natural with baby hairs and gradual density\n`;
+    styleDescription += `   - Sideburns must blend naturally into the skin\n`;
+    styleDescription += `   - Beard edges must have natural feathering, not sharp lines\n`;
+    styleDescription += `   - No halo artifacts, no visible cut lines, no color fringing\n\n`;
+    styleDescription += `5. NATURAL HAIR TEXTURE: The hair/beard must show:\n`;
+    styleDescription += `   - Individual visible strands, not smooth solid masses\n`;
+    styleDescription += `   - Natural flyaways and imperfections\n`;
+    styleDescription += `   - Realistic depth and volume with proper layering\n`;
+    styleDescription += `   - Appropriate shine/matte finish matching the hair type\n\n`;
+    styleDescription += `6. BACKGROUND & CLOTHING: Keep the original background, clothing, accessories, and ALL surroundings 100% unchanged. Do not crop, resize, or reframe the image.\n\n`;
+    styleDescription += `7. IMAGE QUALITY: Output at the EXACT same resolution, aspect ratio, sharpness, noise level, and color profile as the input image. The output should be indistinguishable from a real photograph.\n\n`;
+    styleDescription += `8. PHYSICS & REALISM: Hair must obey gravity and physics. It should drape, fall, and stack naturally. Consider head shape and skull structure when placing the new hairstyle.\n`;
 
     // Call Gemini with image editing
     const model = genAI.getGenerativeModel({ model: 'gemini-3-pro-image-preview' });
