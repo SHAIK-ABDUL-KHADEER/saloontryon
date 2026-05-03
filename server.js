@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3000;
 
 // --------------- Config ---------------
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
+const SECRET_CODE = process.env.SECRET_CODE || 'SALOON2026';
 const DATA_FILE = path.join(__dirname, 'data', 'sessions.json');
 const UPLOADS_DIR = path.join(__dirname, 'uploads');
 const GENERATED_DIR = path.join(__dirname, 'generated');
@@ -115,6 +116,15 @@ const STYLES = {
 };
 
 // --------------- API Routes ---------------
+
+// Validate secret code
+app.post('/api/validate-code', (req, res) => {
+  const { code } = req.body;
+  if (!code) {
+    return res.json({ valid: false });
+  }
+  res.json({ valid: code === SECRET_CODE });
+});
 
 // Get style catalog (supports ?gender=male|female filtering for hairstyles)
 app.get('/api/styles', (req, res) => {

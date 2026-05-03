@@ -8,6 +8,7 @@ const state = {
   selectedGender: 'male',
   styles: { hairstyles: [], beards: [] },
   stream: null,
+  secretCodeValid: false,
 };
 
 // ===== DOM REFS =====
@@ -368,8 +369,69 @@ function updateSelectionSummary() {
     btn.disabled = true;
   } else {
     summary.innerHTML = `<p>Selected: ${parts.join(' + ')}</p>`;
-    btn.disabled = false;
+    // Enable only if styles are selected AND secret code is valid
+    btn.disabled = !state.secretCodeValid;
   }
+}
+
+// ===== SECRET CODE VALIDATION =====
+let codeValidateTimer = null;
+
+async function validateSecretCode() {
+  const input = $('#secretCodeInput');
+  const icon = $('#codeIcon');
+  const hint = $('#secretCodeHint');
+  const code = input.value.trim();
+
+  // Clear previous timer (debounce)
+  if (codeValidateTimer) clearTimeout(codeValidateTimer);
+
+  // Reset classes
+  input.classList.remove('code-valid', 'code-invalid');
+  icon.classList.remove('unlocked');
+
+  if (!code) {
+    icon.textContent = '🔒';
+    hint.textContent = 'A valid code is required to generate';
+    hint.className = 'secret-code-hint';
+    state.secretCodeValid = false;
+    updateSelectionSummary();
+    return;
+  }
+
+  // Debounce: wait 400ms after user stops typing
+  codeValidateTimer = setTimeout(async () => {
+    try {
+      const res = await fetch('/api/validate-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code }),
+      });
+      const data = await res.json();
+
+      if (data.valid) {
+        state.secretCodeValid = true;
+        input.classList.add('code-valid');
+        icon.textContent = '🔓';
+        icon.classList.add('unlocked');
+        hint.textContent = '✓ Code accepted — ready to generate!';
+        hint.className = 'secret-code-hint hint-success';
+      } else {
+        state.secretCodeValid = false;
+        input.classList.add('code-invalid');
+        icon.textContent = '🔒';
+        hint.textContent = '✗ Invalid code — please try again';
+        hint.className = 'secret-code-hint hint-error';
+      }
+    } catch (err) {
+      state.secretCodeValid = false;
+      icon.textContent = '🔒';
+      hint.textContent = 'Could not verify code';
+      hint.className = 'secret-code-hint hint-error';
+    }
+
+    updateSelectionSummary();
+  }, 400);
 }
 
 // ===== GENERATE =====
@@ -489,6 +551,7 @@ function startOver() {
   state.selectedHairstyle = null;
   state.selectedBeard = null;
   state.selectedGender = 'male';
+  state.secretCodeValid = false;
 
   // Reset gender toggle UI
   const maleBtn = $('#genderMale');
@@ -499,6 +562,23 @@ function startOver() {
   // Reset style card selections
   $$('.style-card.selected').forEach((c) => c.classList.remove('selected'));
   updateSelectionSummary();
+
+  // Reset secret code field
+  const codeInput = $('#secretCodeInput');
+  if (codeInput) {
+    codeInput.value = '';
+    codeInput.classList.remove('code-valid', 'code-invalid');
+  }
+  const codeIcon = $('#codeIcon');
+  if (codeIcon) {
+    codeIcon.textContent = '🔒';
+    codeIcon.classList.remove('unlocked');
+  }
+  const codeHint = $('#secretCodeHint');
+  if (codeHint) {
+    codeHint.textContent = 'A valid code is required to generate';
+    codeHint.className = 'secret-code-hint';
+  }
 
   // Reload styles for male
   loadStyles();

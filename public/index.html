@@ -161,6 +161,19 @@
         <div class="selection-summary" id="selectionSummary">
           <p>No styles selected yet</p>
         </div>
+        <div class="secret-code-wrap">
+          <label class="secret-code-label" for="secretCodeInput">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            <span>Enter Secret Code</span>
+          </label>
+          <div class="secret-code-input-group">
+            <input type="password" id="secretCodeInput" class="input-field secret-code-field" placeholder="Enter code to unlock..." maxlength="30" autocomplete="off" oninput="validateSecretCode()">
+            <div class="secret-code-status" id="secretCodeStatus">
+              <span class="code-icon" id="codeIcon">🔒</span>
+            </div>
+          </div>
+          <p class="secret-code-hint" id="secretCodeHint">A valid code is required to generate</p>
+        </div>
         <button class="btn btn-primary btn-glow btn-generate" id="generateBtn" onclick="generateStyle()" disabled>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
           <span>Generate My New Look</span>
